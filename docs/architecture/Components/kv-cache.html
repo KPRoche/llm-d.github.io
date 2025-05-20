@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.7.0">
 <title data-rh="true">KV-cache Manager | llm-d</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://kproche.github.io/llm-d.github.io/docs/architecture/Components/kv-cache"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="KV-cache Manager | llm-d"><meta data-rh="true" name="description" content="Introduction"><meta data-rh="true" property="og:description" content="Introduction"><link data-rh="true" rel="icon" href="/llm-d.github.io/img/llm-d-favicon.png"><link data-rh="true" rel="canonical" href="https://kproche.github.io/llm-d.github.io/docs/architecture/Components/kv-cache"><link data-rh="true" rel="alternate" href="https://kproche.github.io/llm-d.github.io/docs/architecture/Components/kv-cache" hreflang="en"><link data-rh="true" rel="alternate" href="https://kproche.github.io/llm-d.github.io/docs/architecture/Components/kv-cache" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/llm-d.github.io/blog/rss.xml" title="llm-d RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/llm-d.github.io/blog/atom.xml" title="llm-d Atom Feed"><link rel="stylesheet" href="/llm-d.github.io/assets/css/styles.f0c20f79.css">
-<script src="/llm-d.github.io/assets/js/runtime~main.96072dd2.js" defer="defer"></script>
+<script src="/llm-d.github.io/assets/js/runtime~main.b67389e0.js" defer="defer"></script>
 <script src="/llm-d.github.io/assets/js/main.8f5b6105.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -17,9 +17,43 @@ KV-cache reuse avoids redundant computations during inference, significantly red
 This is particularly beneficial for long context multi-turn conversations or Agentic (&amp;RAG) applications where
 previously computed information can be leveraged effectively.
 Efficient KV-cache management and routing are essential for scaling LLM inference and delivering a responsive user experience.</p>
-<p>llmd-kv-cache-manager is a pluggable KV-cache Manager for KV-cache Aware Routing in vLLM-based serving platforms.</p>
+<p>llmd-kv-cache-manager is a pluggable KV-cache Manager for KV-cache Aware Routing in LLM serving platforms.</p>
+<p>This initial work will expand in capacity as development continues.</p>
 <p>See the <a href="https://github.com/llm-d/llm-d-kv-cache-manager/blob/main/docs/README.md" target="_blank" rel="noopener noreferrer">docs folder in the repository</a> for more information on goals, architecture and more.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="overview">Overview<a href="#overview" class="hash-link" aria-label="Direct link to Overview" title="Direct link to Overview">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="goals">Goals<a href="#goals" class="hash-link" aria-label="Direct link to Goals" title="Direct link to Goals">​</a></h2>
+<p>The KVCache-Manager is designed to connect high-level serving-stack goals with concrete system capabilities through a layered objective structure:</p>
+<ul>
+<li><strong>Improve user experience</strong>
+<ul>
+<li>By reducing Time-To-First-Token (TTFT)<!-- -->
+<ul>
+<li>Enabled through higher KVCache hit rates and reduced tensor transfers</li>
+<li>Supported by smart routing and distributed cache availability</li>
+<li>Optimized by proactive pre-placement of hot caches and session duplication/migration</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Reduce serving costs</strong>
+<ul>
+<li>By improving compute utilization<!-- -->
+<ul>
+<li>Minimize re-compute via KVCache reuse and locality-aware request handling</li>
+<li>Leverage zero-copy cache transfers across nodes</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="vision">Vision<a href="#vision" class="hash-link" aria-label="Direct link to Vision" title="Direct link to Vision">​</a></h2>
+<p>This goal structure above is shaped by our vision for emerging use cases like RAG and agentic workflows,
+which involve heavy context-reuse across sessions and instances.
+Shared documents, tool prompts, and workflow steps create overlapping token streams that benefit significantly from
+cross-instance KVCache coordination.</p>
+<p>To implement this vision, the KVCache-Manager incorporates proactive cache placement, session duplication,
+and cluster-level cache APIs - bridging gaps in current serving stacks where KVCache management and utilization is
+not yet treated as a first-class concern.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="architecture-overview">Architecture Overview<a href="#architecture-overview" class="hash-link" aria-label="Direct link to Architecture Overview" title="Direct link to Architecture Overview">​</a></h2>
 <p>The code defines a <a href="https://github.com/llm-d/llm-d-kv-cache-manager/tree/main/pkg/kv-cache/indexer.go" target="_blank" rel="noopener noreferrer">kvcache.Indexer</a> module that efficiently maintains a global view of KV-cache states and localities.
 In the current state of vLLM, the only available information on KV-cache availability is that of the offloaded tensors to KV-cache Engines via the Connector API.</p>
 <p>The <code>kvcache.Indexer</code> module is a pluggable Go package designed for use by orchestrators to enable KV-cache-aware scheduling decisions.</p>
@@ -93,8 +127,8 @@ since one token may be associated with the edge-characters of two consecutive ch
 </li>
 </ol>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="maintenance-of-redis-for-kvblock---pods-mapping">Maintenance of Redis for KVBlock -&gt; Pods Mapping<a href="#maintenance-of-redis-for-kvblock---pods-mapping" class="hash-link" aria-label="Direct link to Maintenance of Redis for KVBlock -&gt; Pods Mapping" title="Direct link to Maintenance of Redis for KVBlock -&gt; Pods Mapping">​</a></h3>
-<p>In the current phase, LMCache is set up to use the same Redis server for indexing. For the scope of LMCache, this indexing
-is necessary for KV-cache reuse through offloading and sharing.</p>
+<p>Currently, indexing information is updated from vLLM for the offloaded tokens using the Connector API, specifically leveraging the LMCache connector.</p>
+<p>Future enhancements will enable the <code>llm-d-kv-cache-manager</code> component to process KV-cache events across all memory layers of vLLM, ensuring an accurate wholistic view of KV-cache localities throughout the system</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="examples">Examples<a href="#examples" class="hash-link" aria-label="Direct link to Examples" title="Direct link to Examples">​</a></h2>
 <ul>
 <li><a href="https://github.com/llm-d/llm-d-kv-cache-manager/tree/main/examples/kv-cache-index/" target="_blank" rel="noopener noreferrer">KV-cache Indexer</a>:<!-- -->
@@ -108,7 +142,7 @@ is necessary for KV-cache reuse through offloading and sharing.</p>
 <a href="https://github.com/llm-d/llm-d-inference-scheduler" target="_blank" rel="noopener noreferrer">llm-d-inference-scheduler</a> in a KV-cache aware scorer.</li>
 </ul>
 </li>
-</ul></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/llm-d.github.io/docs/architecture/Components/routing-sidecar"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Routing Sidecar</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#introduction" class="table-of-contents__link toc-highlight">Introduction</a></li><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#architecture" class="table-of-contents__link toc-highlight">Architecture</a><ul><li><a href="#detailed-system-flow" class="table-of-contents__link toc-highlight">Detailed System Flow</a></li><li><a href="#explanation" class="table-of-contents__link toc-highlight">Explanation</a></li><li><a href="#maintenance-of-redis-for-kvblock---pods-mapping" class="table-of-contents__link toc-highlight">Maintenance of Redis for KVBlock -&gt; Pods Mapping</a></li></ul></li><li><a href="#examples" class="table-of-contents__link toc-highlight">Examples</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">User Guide</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/llm-d.github.io/docs/guide">How to Use</a></li></ul></div><div class="col footer__col"><div class="footer__title">Architecture</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/llm-d.github.io/docs/architecture/architecture">Overview</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/llm-d.github.io/docs/community/contact_us">Contact us</a></li><li class="footer__item"><a class="footer__link-item" href="/llm-d.github.io/docs/community/contribute">Contributing</a></li><li class="footer__item"><a href="https://github.com/llm-d/llm-d/blob/dev/CODE_OF_CONDUCT.md" target="_blank" rel="noopener noreferrer" class="footer__link-item">Code of Conduct<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/llm-d.github.io/blog">News</a></li><li class="footer__item">
+</ul></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/llm-d.github.io/docs/architecture/Components/routing-sidecar"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Routing Sidecar</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#introduction" class="table-of-contents__link toc-highlight">Introduction</a></li><li><a href="#goals" class="table-of-contents__link toc-highlight">Goals</a></li><li><a href="#vision" class="table-of-contents__link toc-highlight">Vision</a></li><li><a href="#architecture-overview" class="table-of-contents__link toc-highlight">Architecture Overview</a></li><li><a href="#architecture" class="table-of-contents__link toc-highlight">Architecture</a><ul><li><a href="#detailed-system-flow" class="table-of-contents__link toc-highlight">Detailed System Flow</a></li><li><a href="#explanation" class="table-of-contents__link toc-highlight">Explanation</a></li><li><a href="#maintenance-of-redis-for-kvblock---pods-mapping" class="table-of-contents__link toc-highlight">Maintenance of Redis for KVBlock -&gt; Pods Mapping</a></li></ul></li><li><a href="#examples" class="table-of-contents__link toc-highlight">Examples</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">User Guide</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/llm-d.github.io/docs/guide">How to Use</a></li></ul></div><div class="col footer__col"><div class="footer__title">Architecture</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/llm-d.github.io/docs/architecture/architecture">Overview</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/llm-d.github.io/docs/community/contact_us">Contact us</a></li><li class="footer__item"><a class="footer__link-item" href="/llm-d.github.io/docs/community/contribute">Contributing</a></li><li class="footer__item"><a href="https://github.com/llm-d/llm-d/blob/dev/CODE_OF_CONDUCT.md" target="_blank" rel="noopener noreferrer" class="footer__link-item">Code of Conduct<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/llm-d.github.io/blog">News</a></li><li class="footer__item">
                 <a href="https://github.com/llm-d/" target="_blank" rel="noreferrer noopener" aria-label="GitHub Icon">
                   <img class="github-footer" src="https://raw.githubusercontent.com/KPRoche/iconography/refs/heads/main/assets/github-mark-white.png" alt="GitHub Icon" width="30px" height="auto" margin="5px">
                 </a>
