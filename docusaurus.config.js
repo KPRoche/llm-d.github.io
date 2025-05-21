@@ -94,6 +94,18 @@ const config = {
       }),
     ],
   ],
+/*  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'repository',
+        path: '../', // <<-- relative path from the docusaurus folder
+        routeBasePath: '../',
+        include:['README.md, CONTRIBUTING.md, PROJECT.md, CODE_OF_CONDUCT.md, DCO, ONBOARDING.md, PR_SIGNOFF.md']
+        // ... other options
+      },
+    ],
+  ],*/
   markdown: { mermaid: true },
   themes: ["@docusaurus/theme-mermaid"],
 
