@@ -22,28 +22,34 @@ const config = {
   tagline: "Powered by Docusaurus",
   favicon: "img/llm-d-favicon.png",
 
+// GitHub pages deployment config.
+// If you aren't using GitHub pages, you don't need these.
+
+// -------------------  Deployment to main llm-d.ai site
+  // ****    UNCOMMENT THIS SECTION FOR DEPLOYMENT TO llm-d.ai ***** //
+  //         Comment it out to deploy preview via your own GitHub Account
+/*  
   // Set the production url of your site here
-  //url: "https://kproche.github.io/",
-  // url: "https://jessicachitas.github.io/",
   url: "https://llm-d.ai/",
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  //baseUrl: "/llm-d.github.io/",
   baseUrl: "/",
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-
-  //IF YOU ARE DEPLOYING PREVIEW PAGES via GITHUB PAGES FOR THE MAIN REPO
-  // UNCOMMENT THE NEXT TWO LINES AND COMMENT OUT THE FORK SECTION BELOW
   organizationName: "llm-d", // Usually your GitHub org/user name.
-  //projectName: "webdocs", // Usually your repo name.
-
-  //IF YOU ARE DEPLOYING PREVIEW PAGES VIA GITHUB PAGES FOR A BRANCH OF A FORK IN YOUR ACCOUNT
-  //EDIT THESE LINES APPROPRIATELY
-  //organizationName: "jessicachitas", // Usually your GitHub org/user name.
-  //organizationName: "kproche", // Usually your GitHub org/user name.
   projectName: "llm-d.github.io", // Usually your repo name.
+
+// ---------------  End of llm-d.ai settings for deployment
+*/  
+// ---------------- Deployment to a preview site from your own fork
+
+    // ****   UNCOMMENT AND EDIT PART OF THIS SECTION TO DEPLOY TO YOUR OWN user.github.io GitHub Pages
+    //    
+    //    Example: Kevin Roche (one of the repository admins)
+
+  url: "https://kproche.github.io/", // this is where GitHub pages renders your sites
+  baseurl: "/llm-d-site/", // This works most reliably if it is your fork repo name between slashes
+  organizationName: "kproche", // Usually your GitHub org/user name.
+  projectName: "/llm-d-site/", // Usually Your (fork) repo name.
+//*/
+
+// By default GitHub pages is set up to deploy from gh-pages  
   deploymentBranch: "gh-pages",
 
   trailingSlash: false,
@@ -94,18 +100,6 @@ const config = {
       }),
     ],
   ],
-/*  plugins: [
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'repository',
-        path: '../', // <<-- relative path from the docusaurus folder
-        routeBasePath: '../',
-        include:['README.md, CONTRIBUTING.md, PROJECT.md, CODE_OF_CONDUCT.md, DCO, ONBOARDING.md, PR_SIGNOFF.md']
-        // ... other options
-      },
-    ],
-  ],*/
   markdown: { mermaid: true },
   themes: ["@docusaurus/theme-mermaid"],
 
