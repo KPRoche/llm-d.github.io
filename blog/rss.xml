@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>llm-d Blog</title>
-        <link>https://kproche.github.io/llm-d.github.io/blog</link>
+        <link>https://llm-d.ai/llm-d.github.io/blog</link>
         <description>llm-d Blog</description>
         <lastBuildDate>Tue, 20 May 2025 08:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,18 +10,18 @@
         <language>en</language>
         <item>
             <title><![CDATA[Announcing the llm-d community!]]></title>
-            <link>https://kproche.github.io/llm-d.github.io/blog/llm-d-announce</link>
-            <guid>https://kproche.github.io/llm-d.github.io/blog/llm-d-announce</guid>
+            <link>https://llm-d.ai/llm-d.github.io/blog/llm-d-announce</link>
+            <guid>https://llm-d.ai/llm-d.github.io/blog/llm-d-announce</guid>
             <pubDate>Tue, 20 May 2025 08:00:00 GMT</pubDate>
             <description><![CDATA[Debut announcement of llm-d project and community]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="announcing-the-llm-d-community">Announcing the llm-d community<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-announce#announcing-the-llm-d-community" class="hash-link" aria-label="Direct link to Announcing the llm-d community" title="Direct link to Announcing the llm-d community">​</a></h2>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="announcing-the-llm-d-community">Announcing the llm-d community<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-announce#announcing-the-llm-d-community" class="hash-link" aria-label="Direct link to Announcing the llm-d community" title="Direct link to Announcing the llm-d community">​</a></h2>
 <p>llm-d is a Kubernetes-native high-performance distributed LLM inference framework<br>
 <!-- -->- a well-lit path for anyone to serve at scale, with the fastest time-to-value and competitive performance per dollar for most models across most hardware accelerators.</p>
 <p>With llm-d, users can operationalize gen AI deployments with a modular, high-performance, end-to-end serving solution that leverages the latest distributed inference optimizations like KV-cache aware routing and disaggregated serving, co-designed and integrated with the Kubernetes operational tooling in <a href="https://github.com/kubernetes-sigs/gateway-api-inference-extension?tab=readme-ov-file" target="_blank" rel="noopener noreferrer">Inference Gateway (IGW)</a>.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="llm-inference-goes-distributed">LLM Inference Goes Distributed<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-announce#llm-inference-goes-distributed" class="hash-link" aria-label="Direct link to LLM Inference Goes Distributed" title="Direct link to LLM Inference Goes Distributed">​</a></h3>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="why-standard-scale-out-falls-short">Why Standard Scale Out Falls Short<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-announce#why-standard-scale-out-falls-short" class="hash-link" aria-label="Direct link to Why Standard Scale Out Falls Short" title="Direct link to Why Standard Scale Out Falls Short">​</a></h4>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="llm-inference-goes-distributed">LLM Inference Goes Distributed<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-announce#llm-inference-goes-distributed" class="hash-link" aria-label="Direct link to LLM Inference Goes Distributed" title="Direct link to LLM Inference Goes Distributed">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="why-standard-scale-out-falls-short">Why Standard Scale Out Falls Short<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-announce#why-standard-scale-out-falls-short" class="hash-link" aria-label="Direct link to Why Standard Scale Out Falls Short" title="Direct link to Why Standard Scale Out Falls Short">​</a></h4>
 <p>Kubernetes typically scales out application workloads with uniform replicas and round-robin load balancing.</p>
-<p><img decoding="async" loading="lazy" alt="Figure 1: Deploying a service to multiple vLLM instances" src="https://kproche.github.io/llm-d.github.io/assets/images/image5_46-77b3747418c1ebc4bab0a38f9543e824.png" width="1105" height="749" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Figure 1: Deploying a service to multiple vLLM instances" src="https://llm-d.ai/llm-d.github.io/assets/images/image5_46-4c97fed067d33b3eeaf484aedd38777e.png" width="4605" height="3122" class="img_ev3q"></p>
 <p>This simple pattern is very effective for most request patterns, which have the following characteristics:</p>
 <ul>
 <li>Requests are short-lived and generally uniform in resource utilization</li>
@@ -29,9 +29,9 @@
 <li>Each replica can process each request equally well</li>
 <li>Specializing variants and coordinating replicas to process a single request is not useful</li>
 </ul>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="llm-serving-is-unique">LLM Serving Is Unique<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-announce#llm-serving-is-unique" class="hash-link" aria-label="Direct link to LLM Serving Is Unique" title="Direct link to LLM Serving Is Unique">​</a></h4>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="llm-serving-is-unique">LLM Serving Is Unique<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-announce#llm-serving-is-unique" class="hash-link" aria-label="Direct link to LLM Serving Is Unique" title="Direct link to LLM Serving Is Unique">​</a></h4>
 <p>The LLM inference workload, however, is unique with slow, non-uniform, expensive requests. This means that typical scale-out and load-balancing patterns fall short of optimal performance.</p>
-<p><img decoding="async" loading="lazy" alt="Figure 2: Comparison of modern HTTP requests" src="https://kproche.github.io/llm-d.github.io/assets/images/image7_33-22569159e4120833431afcdb6f74a6c0.png" width="1768" height="726" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Figure 2: Comparison of modern HTTP requests" src="https://llm-d.ai/llm-d.github.io/assets/images/image7_33-22569159e4120833431afcdb6f74a6c0.png" width="1768" height="726" class="img_ev3q"></p>
 <p>Let’s take a look at each one step-by-step:</p>
 <p><em>A. Requests are expensive with significant variance in resource utilization.</em></p>
 <ul>
@@ -42,7 +42,7 @@
 </ul>
 </li>
 </ul>
-<p><img decoding="async" loading="lazy" alt="Figure 3: Comparing the RAG pattern and Thinking/Reasoning pattern with prefill and decode stages" src="https://kproche.github.io/llm-d.github.io/assets/images/image2_4-659d9ff985978b910ecfab7e29e8024b.jpg" width="1999" height="741" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Figure 3: Comparing the RAG pattern and Thinking/Reasoning pattern with prefill and decode stages" src="https://llm-d.ai/llm-d.github.io/assets/images/image2_4-659d9ff985978b910ecfab7e29e8024b.jpg" width="1999" height="741" class="img_ev3q"></p>
 <ul>
 <li>These differences in request times can lead to significant imbalances across instances, which are compounded as loaded instances get overwhelmed. Overloads lead to longer ITL (Inter-Token Latency), which leads to more load, which leads to more ITL.</li>
 </ul>
@@ -55,11 +55,11 @@
 </ul>
 </li>
 </ul>
-<p><img decoding="async" loading="lazy" alt="The agentic pattern sequence" src="https://kproche.github.io/llm-d.github.io/assets/images/image8_0-58f2529f00c9948aeab638a3b0cef7e5.jpg" width="1999" height="722" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="The agentic pattern sequence" src="https://llm-d.ai/llm-d.github.io/assets/images/image8_0-58f2529f00c9948aeab638a3b0cef7e5.jpg" width="1999" height="722" class="img_ev3q"></p>
 <ul>
 <li>LLM inference servers like vLLM implement a method called “automatic prefix caching”, which enables “skipping” a significant amount of prefill computation when there is a cache hit. If requests are routed to vLLM replicas that have the data in the cache, we skip computation. Increasing the likelihood of prefix cache hits with a larger cache size can dramatically improve tail latencies.</li>
 </ul>
-<p><img decoding="async" loading="lazy" alt="The prefix aching method" src="https://kproche.github.io/llm-d.github.io/assets/images/image3-3cd6d74c02dfdc443896dbd059d774cd.jpg" width="1999" height="1744" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="The prefix aching method" src="https://llm-d.ai/llm-d.github.io/assets/images/image3-3cd6d74c02dfdc443896dbd059d774cd.jpg" width="1999" height="1744" class="img_ev3q"></p>
 <p><em>C. Specializing and coordinating replicas to process a single request can lead to more throughput per GPU.</em></p>
 <ul>
 <li>
@@ -80,7 +80,7 @@
 </ul>
 </li>
 </ul>
-<p><img decoding="async" loading="lazy" alt="Disaggregation separates the prefill and decode phases" src="https://kproche.github.io/llm-d.github.io/assets/images/image4_57-2bd96d01f1faa556ac64ed77fe0867b7.png" width="1999" height="1144" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Disaggregation separates the prefill and decode phases" src="https://llm-d.ai/llm-d.github.io/assets/images/image4_57-2bd96d01f1faa556ac64ed77fe0867b7.png" width="1999" height="1144" class="img_ev3q"></p>
 <p><em>D. Production deployments often have a range of quality of service (QoS) requirements.</em></p>
 <ul>
 <li>
@@ -96,10 +96,10 @@
 <p>Given the compute intensity (and, therefore, high costs) of LLMs, tight latency SLOs are substantially more expensive to achieve. This spectrum of latency requirements presents an opportunity to further optimize infrastructure efficiency – the more latency tolerant a workload is, the more we can optimize infrastructure efficiency amongst other workloads.</p>
 </li>
 </ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="why-llm-d">Why llm-d?<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-announce#why-llm-d" class="hash-link" aria-label="Direct link to Why llm-d?" title="Direct link to Why llm-d?">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="why-llm-d">Why llm-d?<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-announce#why-llm-d" class="hash-link" aria-label="Direct link to Why llm-d?" title="Direct link to Why llm-d?">​</a></h3>
 <p>To exploit these characteristics and achieve optimal performance for LLM workloads, the inference serving landscape is rapidly transitioning towards distributed cluster-scale architectures. For instance, in its “Open Source Week”, the DeepSeek team published the design of its <a href="https://github.com/deepseek-ai/open-infra-index/blob/main/202502OpenSourceWeek/day_6_one_more_thing_deepseekV3R1_inference_system_overview.md" target="_blank" rel="noopener noreferrer">inference system</a>, which aggressively leverages disaggregation and KV caching to achieve remarkable performance per $ of compute.</p>
 <p>However, for most GenAI innovators, ML platform teams, and IT operations groups, these benefits remain out of reach. Building and operating a complex, monolithic system is time-consuming and challenging, especially in the context of the rapid pace of innovation and enterprise deployments with tens or hundreds of models for divergent use cases. This complexity risks time to market, higher operational costs and sprawl, and difficulty adopting and experimenting.</p>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="our-objective">Our Objective<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-announce#our-objective" class="hash-link" aria-label="Direct link to Our Objective" title="Direct link to Our Objective">​</a></h4>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="our-objective">Our Objective<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-announce#our-objective" class="hash-link" aria-label="Direct link to Our Objective" title="Direct link to Our Objective">​</a></h4>
 <p>The objective of llm-d is to create a well-lit path for anyone to adopt the leading distributed inference optimizations <em>within their existing deployment framework</em> - Kubernetes.</p>
 <p>To achieve this goal, we have the following design principles for the project:</p>
 <ul>
@@ -107,7 +107,7 @@
 <li><strong>Flexibility:</strong> cross-platform (active work to support NVIDIA, Google TPU, AMD, and Intel), with extensible implementations of key composable layers of the stack</li>
 <li><strong>Performance</strong>: leverage distributed optimizations like disaggregation and prefix-aware routing to achieve the highest tok/$ while meeting SLOs</li>
 </ul>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="architecture">Architecture<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-announce#architecture" class="hash-link" aria-label="Direct link to Architecture" title="Direct link to Architecture">​</a></h4>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="architecture">Architecture<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-announce#architecture" class="hash-link" aria-label="Direct link to Architecture" title="Direct link to Architecture">​</a></h4>
 <p>To achieve this objective, we designed llm-d with a modular and layered architecture on top of industry-standard open-source technologies - vLLM, Kubernetes, and Inference Gateway.</p>
 <ul>
 <li>
@@ -120,7 +120,7 @@
 <p><a href="https://gateway-api-inference-extension.sigs.k8s.io/" target="_blank" rel="noopener noreferrer"><strong>Inference Gateway</strong></a> <strong>(IGW)</strong>. IGW is an official Kubernetes project that extends the <a href="https://gateway-api.sigs.k8s.io/" target="_blank" rel="noopener noreferrer">Gateway API</a> (the next generation of Kubernetes Ingress and Load Balancing API) with inference-specific routing. IGW includes many important features like model routing, serving priority, and extensible scheduling logic for “smart” load balancing. IGW integrates with many different gateway implementations, such as Envoy, making it widely portable across Kubernetes clusters.</p>
 </li>
 </ul>
-<p><img decoding="async" loading="lazy" src="https://kproche.github.io/llm-d.github.io/assets/images/llm-d-arch-simplified-d41875ab8b1fcf94a1a42df44940ceae.svg" width="859" height="474" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" src="https://llm-d.ai/llm-d.github.io/assets/images/llm-d-arch-simplified-d41875ab8b1fcf94a1a42df44940ceae.svg" width="859" height="474" class="img_ev3q"></p>
 <p>And our key new contributions:</p>
 <ul>
 <li>
@@ -159,13 +159,13 @@
 </ul>
 </li>
 </ul>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="example-llm-d-features">Example llm-d Features<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-announce#example-llm-d-features" class="hash-link" aria-label="Direct link to Example llm-d Features" title="Direct link to Example llm-d Features">​</a></h4>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="example-llm-d-features">Example llm-d Features<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-announce#example-llm-d-features" class="hash-link" aria-label="Direct link to Example llm-d Features" title="Direct link to Example llm-d Features">​</a></h4>
 <p>llm-d integrates IGW and vLLM together, enabling a high performance distributed serving stack. Let’s discuss some of the example features enabled by llm-d.</p>
 <p><strong>Prefix and KV cache-aware routing</strong></p>
 <p>The first key collaboration between IGW and vLLM in llm-d was developing prefix-cache aware routing to complement the existing KV cache utilization aware load balancing in IGW.</p>
 <p>We conducted a series of experiments to evaluate the performance of the <a href="https://github.com/llm-d/llm-d-inference-scheduler" target="_blank" rel="noopener noreferrer">llm-d-inference-scheduler</a> with prefix-aware routing on 2 NVIDIA 8xH100 nodes using the <a href="https://github.com/LMCache/LMBenchmark/tree/main/synthetic-multi-round-qa" target="_blank" rel="noopener noreferrer">LMbenchmark in a long-input/short-output configuration designed</a> to stress KV cache reuse and routing decision quality.</p>
 <table><thead><tr><th style="text-align:left"></th><th style="text-align:left">Model</th><th style="text-align:left">Configuration</th><th style="text-align:left">ISL</th><th style="text-align:left">OSL</th><th style="text-align:left">Latency SLO</th></tr></thead><tbody><tr><td style="text-align:left"><strong>S1</strong></td><td style="text-align:left">LlaMA 4 Scout FP8</td><td style="text-align:left">TP2, 2 replicas</td><td style="text-align:left">20,000</td><td style="text-align:left">100</td><td style="text-align:left">None</td></tr><tr><td style="text-align:left"><strong>S2</strong></td><td style="text-align:left">LlaMA 4 Scout FP8</td><td style="text-align:left">TP2, 4 replicas</td><td style="text-align:left">12,000</td><td style="text-align:left">100</td><td style="text-align:left">P95 TTFT &lt;= 2s</td></tr><tr><td style="text-align:left"><strong>S3</strong></td><td style="text-align:left">Llama 3.1 70B FP16</td><td style="text-align:left">TP2, 4 replicas</td><td style="text-align:left">8,000</td><td style="text-align:left">100</td><td style="text-align:left">P95 TTFT &lt;= 2s</td></tr></tbody></table>
-<h1><img decoding="async" loading="lazy" src="https://kproche.github.io/llm-d.github.io/assets/images/image1_116-bdf665a6160ab331bf11d8bee505d7f3.png" width="1999" height="1415" class="img_ev3q"></h1>
+<h1><img decoding="async" loading="lazy" src="https://llm-d.ai/llm-d.github.io/assets/images/image1_116-bdf665a6160ab331bf11d8bee505d7f3.png" width="1999" height="1415" class="img_ev3q"></h1>
 <p><strong>Key Observations:</strong></p>
 <ul>
 <li><strong>S1:</strong> At 4 QPS, llm-d achieves a mean TTFT approximately 3X lower than the baseline (lower is better).</li>
@@ -177,7 +177,7 @@
 <p><strong>P/D disaggregation</strong></p>
 <p>We’ve completed an initial implementation of P/D disaggregation with vLLM and llm-d-inference-scheduler, which delivers promising speedups for prefill-heavy workloads (20:1 ISL | OSL). Our next focus is finalizing the implementation with heterogeneous TP and completing comprehensive benchmarks for disaggregated serving. Short-term priorities include enabling heterogeneous TP, scaling with high-performance P/D + EP&lt;&gt;DP for large scale MoEs, and DP-aware load balancing. We will follow up with a detailed performance blog in the coming weeks.</p>
 <p>Try it out with the pd-nixl.yaml config in our <a href="https://github.com/llm-d/llm-d-deployer/tree/main/quickstart" target="_blank" rel="noopener noreferrer">quickstart</a>.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="get-started-with-llm-d">Get started with llm-d<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-announce#get-started-with-llm-d" class="hash-link" aria-label="Direct link to Get started with llm-d" title="Direct link to Get started with llm-d">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="get-started-with-llm-d">Get started with llm-d<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-announce#get-started-with-llm-d" class="hash-link" aria-label="Direct link to Get started with llm-d" title="Direct link to Get started with llm-d">​</a></h3>
 <p>llm-d builds brings together the performance of vLLM with the operationalizability of Kuberentes, creating a modular architecture for distributed LLM inference, targeting high performance on the latest models and agentic architectures.</p>
 <p>We welcome AI engineers and researchers to join the llm-d community and contribute:</p>
 <ul>
@@ -195,16 +195,16 @@
         </item>
         <item>
             <title><![CDATA[llm-d Press Release]]></title>
-            <link>https://kproche.github.io/llm-d.github.io/blog/llm-d-press-release</link>
-            <guid>https://kproche.github.io/llm-d.github.io/blog/llm-d-press-release</guid>
+            <link>https://llm-d.ai/llm-d.github.io/blog/llm-d-press-release</link>
+            <guid>https://llm-d.ai/llm-d.github.io/blog/llm-d-press-release</guid>
             <pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate>
             <description><![CDATA[Official Press Release for llm-d]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="may-20-2025">May 20, 2025<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-press-release#may-20-2025" class="hash-link" aria-label="Direct link to May 20, 2025" title="Direct link to May 20, 2025">​</a></h2>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="may-20-2025">May 20, 2025<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-press-release#may-20-2025" class="hash-link" aria-label="Direct link to May 20, 2025" title="Direct link to May 20, 2025">​</a></h2>
 <h1><strong>Red Hat Launches the llm-d Community, Powering Distributed Gen AI Inference at Scale</strong></h1>
 <p>Forged in collaboration with founding contributors CoreWeave, Google Cloud, IBM Research and NVIDIA and joined by industry leaders AMD, Cisco, Hugging Face, Intel, Lambda and Mistral AI and university supporters at the University of California, Berkeley, and the University of Chicago, the project aims to make production generative AI as omnipresent as Linux</p>
 <p><strong>BOSTON – RED HAT SUMMIT – MAY 20, 2025 —</strong> Red Hat, the world's leading provider of open source solutions, today announced the launch of llm-d, a new open source project that answers the most crucial need of generative AI’s (gen AI) future: Inference at scale. Tapping breakthrough inference technologies for gen AI at scale, llm-d is powered by a native Kubernetes architecture, vLLM-based distributed inference and intelligent AI-aware network routing, empowering robust, large language model (LLM) inference clouds to meet the most demanding production service-level objectives (SLOs).</p>
-<p>While training remains vital, the true impact of gen AI hinges on more efficient and scalable inference - the engine that transforms AI models into actionable insights and user experiences. According to Gartner<sup><a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-press-release#user-content-fn-1-dbc4ec" id="user-content-fnref-1-dbc4ec" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup>, “By 2028, as the market matures, more than 80% of data center workload accelerators will be specifically deployed for inference as opposed to training use.” This underscores that the future of gen AI lies in the ability to execute. The escalating resource demands of increasingly sophisticated and larger reasoning models limits the viability of centralized inference and threatens to bottleneck AI innovation with prohibitive costs and crippling latency.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="answering-the-need-for-scalable-gen-ai-inference-with-llm-d">Answering the need for scalable gen AI inference with llm-d<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-press-release#answering-the-need-for-scalable-gen-ai-inference-with-llm-d" class="hash-link" aria-label="Direct link to Answering the need for scalable gen AI inference with llm-d" title="Direct link to Answering the need for scalable gen AI inference with llm-d">​</a></h3>
+<p>While training remains vital, the true impact of gen AI hinges on more efficient and scalable inference - the engine that transforms AI models into actionable insights and user experiences. According to Gartner<sup><a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-press-release#user-content-fn-1-dbc4ec" id="user-content-fnref-1-dbc4ec" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup>, “By 2028, as the market matures, more than 80% of data center workload accelerators will be specifically deployed for inference as opposed to training use.” This underscores that the future of gen AI lies in the ability to execute. The escalating resource demands of increasingly sophisticated and larger reasoning models limits the viability of centralized inference and threatens to bottleneck AI innovation with prohibitive costs and crippling latency.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="answering-the-need-for-scalable-gen-ai-inference-with-llm-d">Answering the need for scalable gen AI inference with llm-d<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-press-release#answering-the-need-for-scalable-gen-ai-inference-with-llm-d" class="hash-link" aria-label="Direct link to Answering the need for scalable gen AI inference with llm-d" title="Direct link to Answering the need for scalable gen AI inference with llm-d">​</a></h3>
 <p>Red Hat and its industry partners are directly confronting this challenge with llm-d, a visionary project that amplifies the power of vLLM to transcend single-server limitations and unlock production at scale for AI inference. Using the proven orchestration prowess of Kubernetes, llm-d integrates advanced inference capabilities into existing enterprise IT infrastructures. This unified platform empowers IT teams to meet the diverse serving demands of business-critical workloads, all while deploying innovative techniques to maximize efficiency and dramatically minimize the total cost of ownership (TCO) associated with high-performance AI accelerators.</p>
 <p>llm-d delivers a powerful suite of innovations, highlighted by:</p>
 <ul>
@@ -215,10 +215,10 @@
 <li><strong>AI-Aware Network Routing</strong> for scheduling incoming requests to the servers and accelerators that are most likely to have hot caches of past inference calculations.</li>
 <li><strong>High-performance communication APIs</strong> for faster and more efficient data transfer between servers, with support for NVIDIA Inference Xfer Library (NIXL).</li>
 </ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="llm-d-backed-by-industry-leaders">llm-d: Backed by industry leaders<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-press-release#llm-d-backed-by-industry-leaders" class="hash-link" aria-label="Direct link to llm-d: Backed by industry leaders" title="Direct link to llm-d: Backed by industry leaders">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="llm-d-backed-by-industry-leaders">llm-d: Backed by industry leaders<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-press-release#llm-d-backed-by-industry-leaders" class="hash-link" aria-label="Direct link to llm-d: Backed by industry leaders" title="Direct link to llm-d: Backed by industry leaders">​</a></h3>
 <p>This new open source project has already garnered the support of a formidable coalition of leading gen AI model providers, AI accelerator pioneers, and premier AI cloud platforms. CoreWeave, Google Cloud, IBM Research and NVIDIA are founding contributors, with AMD, Cisco, Hugging Face, Intel, Lambda and Mistral AI as partners, underscoring the industry’s deep collaboration to architect the future of large-scale LLM serving. The llm-d community is further joined by founding supporters at the Sky Computing Lab at the University of California, originators of vLLM, and the LMCache Lab at the University of Chicago, originators of <a href="https://github.com/LMCache/LMCache" target="_blank" rel="noopener noreferrer">LMCache</a><em>.</em></p>
 <p>Rooted in its unwavering commitment to open collaboration, Red Hat recognizes the critical importance of vibrant and accessible communities in the rapidly evolving landscape of gen AI inference. Red Hat will actively champion the growth of the llm-d community, fostering an inclusive environment for new members and fueling its continued evolution.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="red-hats-vision-any-model-any-accelerator-any-cloud">Red Hat’s vision: Any model, any accelerator, any cloud.<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-press-release#red-hats-vision-any-model-any-accelerator-any-cloud" class="hash-link" aria-label="Direct link to Red Hat’s vision: Any model, any accelerator, any cloud." title="Direct link to Red Hat’s vision: Any model, any accelerator, any cloud.">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="red-hats-vision-any-model-any-accelerator-any-cloud">Red Hat’s vision: Any model, any accelerator, any cloud.<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-press-release#red-hats-vision-any-model-any-accelerator-any-cloud" class="hash-link" aria-label="Direct link to Red Hat’s vision: Any model, any accelerator, any cloud." title="Direct link to Red Hat’s vision: Any model, any accelerator, any cloud.">​</a></h3>
 <p>The future of AI must be defined by limitless opportunity, not constrained by infrastructure silos. Red Hat sees a horizon where organizations can deploy any model, on any accelerator, across any cloud, delivering an exceptional, more consistent user experience without exorbitant costs. To unlock the true potential of gen AI investments, enterprises require a universal inference platform - a standard for more seamless, high-performance AI innovation, both today and in the years to come.</p>
 <p>Just as Red Hat pioneered the open enterprise by transforming Linux into the bedrock of modern IT, the company is now poised to architect the future of AI inference. vLLM’s potential is that of a linchpin for standardized gen AI inference, and Red Hat is committed to building a thriving ecosystem around not just the vLLM community but also llm-d for distributed inference at scale. The vision is clear: regardless of the AI model or the underlying accelerator or the deployment environment, Red Hat intends to make vLLM the definitive open standard for inference across the new hybrid cloud.</p>
 <p><strong>Red Hat Summit</strong><br>
@@ -286,10 +286,10 @@
 <p><em>###</em></p>
 <p><em>Red Hat and the Red Hat logo are trademarks or registered trademarks of Red Hat, Inc. or its subsidiaries in the U.S. and other countries.</em></p>
 <!-- -->
-<section data-footnotes="true" class="footnotes"><h2 class="anchor anchorWithStickyNavbar_LWe7 sr-only" id="footnote-label">Footnotes<a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-press-release#footnote-label" class="hash-link" aria-label="Direct link to Footnotes" title="Direct link to Footnotes">​</a></h2>
+<section data-footnotes="true" class="footnotes"><h2 class="anchor anchorWithStickyNavbar_LWe7 sr-only" id="footnote-label">Footnotes<a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-press-release#footnote-label" class="hash-link" aria-label="Direct link to Footnotes" title="Direct link to Footnotes">​</a></h2>
 <ol>
 <li id="user-content-fn-1-dbc4ec">
-<p>Forecast Analysis: AI Semiconductors, Worldwide, Alan Priestley, Gartner, 2 August 2024 - ID G00818912 GARTNER is a registered trademark and service mark of Gartner, Inc. and/or its affiliates in <a href="https://kproche.github.io/llm-d.github.io/blog/llm-d-press-release#user-content-fnref-1-dbc4ec" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+<p>Forecast Analysis: AI Semiconductors, Worldwide, Alan Priestley, Gartner, 2 August 2024 - ID G00818912 GARTNER is a registered trademark and service mark of Gartner, Inc. and/or its affiliates in <a href="https://llm-d.ai/llm-d.github.io/blog/llm-d-press-release#user-content-fnref-1-dbc4ec" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
 </li>
 </ol>
 </section>]]></content:encoded>
