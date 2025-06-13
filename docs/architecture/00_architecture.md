@@ -14,6 +14,7 @@ import VimeoEmbed from '@site/src/components/VimeoEmbed';
 <VimeoEmbed videoId="1084693051" hash="f92f0d6b1d" />
 
 
+
 ##  Architecture
 
 `llm-d` adopts a layered architecture on top of industry-standard open technologies: vLLM, Kubernetes, and Inference Gateway.
