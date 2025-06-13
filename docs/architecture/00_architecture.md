@@ -9,6 +9,11 @@ With `llm-d`, users can operationalize GenAI deployments with a modular solution
 
 Built by leaders in the Kubernetes and vLLM projects, `llm-d` is a community-driven, Apache-2 licensed project with an open development model.
 
+import VimeoEmbed from '@site/src/components/VimeoEmbed';
+
+<VimeoEmbed videoId="1084693051" hash="f92f0d6b1d" />
+
+
 ##  Architecture
 
 `llm-d` adopts a layered architecture on top of industry-standard open technologies: vLLM, Kubernetes, and Inference Gateway.
